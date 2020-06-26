@@ -10,7 +10,6 @@ function App() {
 	return (
 		<div className='App'>
 			<header className='App-header'>
-				<h1>FIND YOUR REP</h1>
 				<Switch>
 					<Route exact path='/' component={List} />
 					<Route exact path='/:memberId/record' component={Record} />

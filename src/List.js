@@ -36,10 +36,20 @@ class List extends React.Component {
 		});
 	};
 
+	handleClick = (member) => {
+		this.props.history.push({
+			pathname: `/${member.id}/record`,
+			state: {
+				name: `${member.firstName} ${member.lastName}`,
+			},
+		});
+	};
+
 	render() {
 		console.log(this.state.members);
 		return (
 			<div>
+				<h1>FIND YOUR REP</h1>
 				<form onClick={this.handleSubmit}>
 					<label>State </label>
 					<input
@@ -54,7 +64,15 @@ class List extends React.Component {
 					{this.state.members &&
 						this.state.members.map((member) => (
 							<div key={member.id}>
-								<Link to={`/${member.id}/record`}>
+								<Link
+									to={{
+										pathname: `/${member.id}/record`,
+										state: {
+											member: `${member.first_name} ${member.last_name}`,
+										},
+										test: 'test',
+									}}
+								>
 									<CongressCard member={member} />
 								</Link>
 							</div>
