@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import CongressCard from './Card';
+import { Link } from 'react-router-dom';
 
 class List extends React.Component {
 	constructor() {
@@ -22,9 +23,8 @@ class List extends React.Component {
 	handleSubmit = async (e) => {
 		e.preventDefault();
 		const chamber = 'senate';
-		const district = 12;
 		const list = await axios.get(
-			`https://api.propublica.org/congress/v1/members/${chamber}/${this.state.state}/${district}/current.json`,
+			`https://api.propublica.org/congress/v1/members/${chamber}/${this.state.state}/current.json`,
 			{
 				headers: {
 					'X-API-Key': '7DpUCPCbdtNNATnR4lV8lApfNqZpkZqCZieR6x3j',
@@ -54,7 +54,9 @@ class List extends React.Component {
 					{this.state.members &&
 						this.state.members.map((member) => (
 							<div key={member.id}>
-								<CongressCard member={member} />
+								<Link to={`/${member.id}/record`}>
+									<CongressCard member={member} />
+								</Link>
 							</div>
 						))}
 				</div>
