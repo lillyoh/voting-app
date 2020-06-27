@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import RecordTable from './RecordTable';
 
 class VotingRecord extends React.Component {
 	constructor(props) {
@@ -13,7 +14,6 @@ class VotingRecord extends React.Component {
 
 	async componentDidMount() {
 		const memberId = this.props.match.params.memberId;
-		console.log(this.props.history);
 		const list = await axios.get(
 			`https://api.propublica.org/congress/v1/members/${memberId}/votes.json`,
 			{
@@ -28,18 +28,18 @@ class VotingRecord extends React.Component {
 		});
 	}
 
+	goBack = () => {
+		this.props.history.goBack();
+	};
+
 	render() {
+		console.log(this.state.record);
 		const { record } = this.state;
 		return (
 			<div>
 				<h1>Voting Record for {this.props.history.location.state.member}</h1>
-				{record.map((r) => (
-					<div key={r.vote_uri}>
-						<p>{r.description}</p>
-						<p>Date: {r.date}</p>
-						<p>Vote: {r.position}</p>
-					</div>
-				))}
+				<button onClick={this.goBack}>Go Back</button>
+				<RecordTable record={record} />
 			</div>
 		);
 	}

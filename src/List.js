@@ -12,8 +12,6 @@ class List extends React.Component {
 		};
 	}
 
-	async componentDidMount() {}
-
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
@@ -46,7 +44,7 @@ class List extends React.Component {
 	};
 
 	render() {
-		console.log(this.state.members);
+		console.log('the state', this.state.state);
 		return (
 			<div>
 				<h1>FIND YOUR REP</h1>
@@ -69,6 +67,7 @@ class List extends React.Component {
 										pathname: `/${member.id}/record`,
 										state: {
 											member: `${member.first_name} ${member.last_name}`,
+											state: this.state.state,
 										},
 										test: 'test',
 									}}
